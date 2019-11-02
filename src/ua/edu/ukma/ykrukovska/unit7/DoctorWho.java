@@ -1,66 +1,60 @@
 package ua.edu.ukma.ykrukovska.unit7;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
 
 public class DoctorWho {
 
     public static void main(String[] args) throws IOException {
 
         String input;
-        Scanner in = new Scanner(System.in);
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<String> lines = new ArrayList<>();
 
-        input = in.nextLine();
+        while ((input = in.readLine()) != null) {
+            lines.add(input);
+        }
 
+        for (String line : lines) {
 
-        String[] split = input.split(" ");
-        if (split.length <= 10000 && validateInput(split)) {
-            System.out.println(findPairs(input) ? "ok" : "fail");
+            System.out.println(findPairs(line) ? "ok" : "fail");
             System.out.println("");
 
         }
 
-    }
 
-    private static boolean validateInput(String[] split) {
-        for (int i = 0; i < split.length; i++) {
-            if (Integer.parseInt(split[i]) > 1000) {
-                return false;
-            }
-        }
-        return true;
     }
 
 
     public static boolean findPairs(String data) {
 
-        String[] split = data.split(" ");
+        String[] splitLine = data.split(" ");
 
-        ArrayList<Integer> list = new ArrayList<>();
+        ArrayList<Integer> numbers = new ArrayList<>();
 
 
-        for (int j = 0; j < split.length; j++) {
-            list.add(Integer.parseInt(split[j]));
+        for (String number : splitLine) {
+            numbers.add(Integer.parseInt(number));
         }
 
 
-        boolean result = process(list);
-
-
-        return result;
+        return process(numbers);
     }
 
 
     public static boolean process(ArrayList<Integer> guests) {
 
+        guests.sort((o1, o2) -> (o1 < o2) ? 1 : ((o1.equals(o2)) ? 0 : -1));
 
         if (guests.size() == 0) {
             return true;
         }
 
         if (guests.size() == 1) {
+
             return false;
         }
         if (guests.size() == 2 && guests.get(0) == 1 && guests.get(1) == 1) {
@@ -91,7 +85,6 @@ public class DoctorWho {
         }
 
         return process(guests);
-
 
     }
 }

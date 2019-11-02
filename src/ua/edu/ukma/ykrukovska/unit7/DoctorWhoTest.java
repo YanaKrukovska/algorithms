@@ -3,7 +3,7 @@ package ua.edu.ukma.ykrukovska.unit7;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class DoctorWhoTest {
+public class DoctorWhoTest {
 
     @Test
     void oneElement() {
