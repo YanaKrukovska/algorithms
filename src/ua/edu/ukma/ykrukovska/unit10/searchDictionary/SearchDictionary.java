@@ -1,6 +1,7 @@
 package ua.edu.ukma.ykrukovska.unit10.searchDictionary;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
@@ -16,8 +17,20 @@ public class SearchDictionary {
         dictionary.add(word);
     }
 
-    public String delWord(String word) {
-        return dictionary.remove(word) ? word : null;
+    public void delWord(String word) {
+        String requestQuery = word.replaceAll("\\*", "\\\\w*");
+        Pattern pattern = Pattern.compile(requestQuery);
+
+        List<String> wordsToDelete = new ArrayList<>();
+
+
+        for (String str : this.dictionary) {
+            if (pattern.matcher(str).matches())
+                wordsToDelete.add(str);
+        }
+
+        dictionary.removeAll(wordsToDelete);
+
     }
 
     public boolean hasWord(String word) {

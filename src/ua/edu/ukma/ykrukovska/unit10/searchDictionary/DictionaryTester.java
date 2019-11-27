@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 
 public class DictionaryTester {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
 
 
         Scanner in = new Scanner(System.in);
@@ -22,28 +22,61 @@ public class DictionaryTester {
 
 
 
+        int userAction;
         String searchedWord;
-
-        String wordToDelete = "nezarah";
-        System.out.println("Is word " + wordToDelete + " present: " + dictionary.hasWord(wordToDelete));
-        dictionary.delWord("nezarah");
-        System.out.println("Is word " + wordToDelete + " present: " + dictionary.hasWord(wordToDelete));
-
-        int wannaContinue = 0;
+        String newWord;
+        String wordToDelete;
         do {
-            System.out.println("Enter word");
-            searchedWord = in.nextLine();
-            if (searchedWord.charAt(searchedWord.length() - 1) == '*') {
-                System.out.println(dictionary.query(searchedWord));
-            } else {
-                System.out.println("Is word " + searchedWord + " present: " + dictionary.hasWord(searchedWord));
+            showMenu();
+            userAction = numbers.nextInt();
+
+            switch (userAction) {
+                case 1:
+                    System.out.println("Add: Enter word");
+                    newWord = in.nextLine();
+                    if (!dictionary.hasWord(newWord)){
+                        dictionary.addWord(newWord);
+                    }
+                    break;
+                case 2:
+                    System.out.println("Delete: Enter word");
+                    wordToDelete = in.nextLine();
+                      dictionary.delWord(wordToDelete);
+                    break;
+                case 3:
+                    System.out.println("Search: Enter word");
+                    searchedWord = in.nextLine();
+                    if (searchedWord.charAt(searchedWord.length() - 1) == '*') {
+                        System.out.println(dictionary.query(searchedWord));
+                    } else {
+                        System.out.println("Is word " + searchedWord + " present: " + dictionary.hasWord(searchedWord));
+                    }
+                    break;
+                case 4:
+                    System.out.println("Check: Enter word");
+                    searchedWord = in.nextLine();
+                    System.out.println("Is word " + searchedWord + " present: " + dictionary.hasWord(searchedWord));
+                    break;
+                case 5:
+                    System.out.println(dictionary.countWords());
+                    break;
             }
 
-            System.out.println("Want to continue? 0 - no, 1 - yes");
-            wannaContinue = numbers.nextInt();
-        } while (wannaContinue != 0);
+        } while (userAction != 0);
+
 
     }
+
+    private static void showMenu() {
+        System.out.println("1. Add word");
+        System.out.println("2. Delete words");
+        System.out.println("3. Search words");
+        System.out.println("4. Check if word is present");
+        System.out.println("5. Dictionary size");
+        System.out.println("0. Exit");
+    }
+
+
 
     private static void fillDictionary(BufferedReader bufferedReader, SearchDictionary dictionary) {
         StringTokenizer token;
@@ -64,4 +97,5 @@ public class DictionaryTester {
 
         }
     }
+
 }
