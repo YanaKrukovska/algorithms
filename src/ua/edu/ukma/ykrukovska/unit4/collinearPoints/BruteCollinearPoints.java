@@ -1,4 +1,8 @@
-package ua.edu.ukma.ykrukovska.unit4;
+package ua.edu.ukma.ykrukovska.unit4.collinearPoints;
+
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdOut;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -69,10 +73,35 @@ public class BruteCollinearPoints {
         }
     }
 
-
     public static void main(String[] args) {
-        /* YOUR CODE HERE */
+
+        In data = new In("D:/Studying/Algorithms/test/rs1423.txt");
+
+        int n = data.readInt();
+        Point[] points = new Point[n];
+        for (int i = 0; i < n; i++) {
+            int x = data.readInt();
+            int y = data.readInt();
+            points[i] = new Point(x, y);
+        }
+
+        StdDraw.setCanvasSize(650, 650);
+        StdDraw.setXscale(-1000, 40000);
+        StdDraw.setYscale(-1000, 40000);
+        StdDraw.enableDoubleBuffering();
+        for (Point p : points) {
+            p.draw();
+        }
+        StdDraw.show();
+
+        BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+        for (LineSegment segment : collinear.segments()) {
+            StdOut.println(segment);
+            segment.draw();
+        }
+        StdDraw.show();
     }
 }
+
 
 

@@ -1,25 +1,22 @@
-package ua.edu.ukma.unit1.sum;
+package ua.edu.ukma.ykrukovska.unit1.sum;
 
 import java.util.Scanner;
 
 public class Sum {
 
     private static int calculateLength(int n) {
-
-            if (n == 1) {
-                return 1;
-            }
-
-        return 1 + calculateLength(n % 2 == 0 ? n / 2 : 3 * n + 1);
+        if (n == 1) {
+            return 1;
         }
-
+        return 1 + calculateLength(n % 2 == 0 ? n / 2 : 3 * n + 1);
+    }
 
     private static int calculateMaxLength(int i, int j) {
 
         int biggerNumber;
         int smallerNumber;
 
-        if (i > j){
+        if (i > j) {
             biggerNumber = i;
             smallerNumber = j;
         } else {
@@ -47,10 +44,9 @@ public class Sum {
             int j = in.nextInt();
             if (i > 0 && i < 1000000 && j > 0 && j < 1000000) {
                 long result = calculateMaxLength(i, j);
+
                 System.out.println(i + " " + j + " " + result);
             }
         }
-
     }
-
 }

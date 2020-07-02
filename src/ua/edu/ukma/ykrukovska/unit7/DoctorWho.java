@@ -22,28 +22,21 @@ public class DoctorWho {
 
             System.out.println(findPairs(line) ? "ok" : "fail");
             System.out.println("");
-
         }
-
-
     }
 
 
     public static boolean findPairs(String data) {
 
         String[] splitLine = data.split(" ");
-
         ArrayList<Integer> numbers = new ArrayList<>();
-
 
         for (String number : splitLine) {
             numbers.add(Integer.parseInt(number));
         }
 
-
         return process(numbers);
     }
-
 
     public static boolean process(ArrayList<Integer> guests) {
 
@@ -52,15 +45,12 @@ public class DoctorWho {
         if (guests.size() == 0) {
             return true;
         }
-
         if (guests.size() == 1) {
-
             return false;
         }
         if (guests.size() == 2 && guests.get(0) == 1 && guests.get(1) == 1) {
             return true;
         }
-
         if (guests.size() == 2 && (guests.get(0) != 1 || guests.get(1) != 1)) {
             return false;
         }
@@ -68,7 +58,6 @@ public class DoctorWho {
             return false;
         }
         Integer desire = guests.get(0);
-
 
         for (int i = 1; i <= desire; i++) {
             guests.add(i, guests.get(i) - 1);
@@ -85,6 +74,5 @@ public class DoctorWho {
         }
 
         return process(guests);
-
     }
 }

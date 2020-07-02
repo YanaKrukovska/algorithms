@@ -9,7 +9,6 @@ public class Board {
     private final int[][] blocks;
 
     public Board(int[][] cells) {
-
         this.blocks = copy(cells);
     }
 
@@ -22,7 +21,6 @@ public class Board {
         }
         return copy;
     }
-
 
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -52,7 +50,6 @@ public class Board {
         return hammingCount;
     }
 
-
     public int manhattan() {
         int manhattanCount = 0;
         for (int i = 0; i < blocks.length; i++) {
@@ -64,7 +61,6 @@ public class Board {
                 }
             }
         }
-
         return manhattanCount;
     }
 
@@ -86,7 +82,6 @@ public class Board {
         return Arrays.deepEquals(this.blocks, that.blocks);
     }
 
-
     private void swap(int[][] blocksArray, int i, int j, int m, int k) {
         int temp = blocksArray[i][j];
         blocksArray[i][j] = blocksArray[m][k];
@@ -95,54 +90,58 @@ public class Board {
 
     public Iterable<Board> neighbors() {
         Queue<Board> neighbors = new Queue<>();
-        int blankRow = 0, blankCol = 0;
-        for (int i = 0; i < dimension(); i++)
-            for (int j = 0; j < blocks[i].length; j++)
+        int row = 0;
+        int column = 0;
+        for (int i = 0; i < dimension(); i++) {
+            for (int j = 0; j < blocks[i].length; j++) {
                 if (blocks[i][j] == 0) {
-                    blankRow = i;
-                    blankCol = j;
+                    row = i;
+                    column = j;
                 }
-        if (blankRow > 0 && blankRow < dimension()) {
-            int[][] blocksCopy = new int[dimension()][dimension()];
-            for (int i = 0; i < dimension(); i++)
-                blocksCopy[i] = blocks[i].clone();
-            swap(blocksCopy, blankRow, blankCol, blankRow - 1, blankCol);
+            }
+        }
+        if (row > 0 && row < dimension()) {
+            int[][] blocksCopy = createCopyOfBlocks();
+            swap(blocksCopy, row, column, row - 1, column);
             Board neighborBlock = new Board(blocksCopy);
             neighbors.enqueue(neighborBlock);
         }
 
-        if (blankRow < dimension() - 1) {
-            int[][] blocksCopy = new int[dimension()][dimension()];
-            for (int i = 0; i < dimension(); i++)
+        if (row < dimension() - 1) {
+            int[][] blocksCopy = createCopyOfBlocks();
+            for (int i = 0; i < dimension(); i++) {
                 blocksCopy[i] = blocks[i].clone();
-            swap(blocksCopy, blankRow, blankCol, blankRow + 1, blankCol);
+            }
+            swap(blocksCopy, row, column, row + 1, column);
             Board neighborBlock = new Board(blocksCopy);
             neighbors.enqueue(neighborBlock);
         }
 
-        if (blankCol > 0) {
-            int[][] blocksCopy = new int[dimension()][dimension()];
-            for (int i = 0; i < dimension(); i++)
-                blocksCopy[i] = blocks[i].clone();
-            swap(blocksCopy, blankRow, blankCol, blankRow, blankCol - 1);
+        if (column > 0) {
+            int[][] blocksCopy = createCopyOfBlocks();
+            swap(blocksCopy, row, column, row, column - 1);
             Board neighborBlock = new Board(blocksCopy);
             neighbors.enqueue(neighborBlock);
         }
-        if (blankCol < dimension() - 1) {
-            int[][] blocksCopy = new int[dimension()][dimension()];
-            for (int i = 0; i < dimension(); i++)
-                blocksCopy[i] = blocks[i].clone();
-            swap(blocksCopy, blankRow, blankCol, blankRow, blankCol + 1);
+        if (column < dimension() - 1) {
+            int[][] blocksCopy = createCopyOfBlocks();
+            swap(blocksCopy, row, column, row, column + 1);
             Board neighborBlock = new Board(blocksCopy);
             neighbors.enqueue(neighborBlock);
         }
         return neighbors;
     }
 
+    private int[][] createCopyOfBlocks() {
+        int[][] blocksCopy = blocks.clone();
+        for (int i = 0; i < dimension(); i++) {
+            blocksCopy[i] = blocks[i].clone();
+        }
+        return blocksCopy;
+    }
+
     public Board twin() {
-        int[][] twinBoard = new int[dimension()][dimension()];
-        for (int i = 0; i < dimension(); i++)
-            twinBoard[i] = blocks[i].clone();
+        int[][] twinBoard = createCopyOfBlocks();
         if (twinBoard[0][0] != 0 && twinBoard[0][1] != 0) {
             swap(twinBoard, 0, 0, 0, 1);
         } else {
@@ -151,7 +150,6 @@ public class Board {
         return new Board(twinBoard);
     }
 
-    // unit testing (not graded)
     public static void main(String[] args) {
         Board board = new Board(new int[][]{{1, 2, 3}, {4, 0, 6}, {7, 8, 5}});
         System.out.println(board.toString());

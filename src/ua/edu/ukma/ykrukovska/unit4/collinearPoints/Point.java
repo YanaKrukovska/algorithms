@@ -1,4 +1,4 @@
-package ua.edu.ukma.ykrukovska.unit4;
+package ua.edu.ukma.ykrukovska.unit4.collinearPoints;
 
 import edu.princeton.cs.algs4.StdDraw;
 

@@ -22,7 +22,7 @@ public class CollisionSystem {
         }
 
         // particle collisions with each other
-     /*   for (Particle particle : particles) {
+       /* for (Particle particle : particles) {
             double dt = a.timeToHit(particle);
             pq.insert(new Event(t + dt, a, particle));
         }*/
@@ -32,8 +32,6 @@ public class CollisionSystem {
         double dtY = a.timeToHitHorizontalWall();
 
         pq.insert(new Event(t + dtX, a, null));
-
-
         pq.insert(new Event(t + dtY, null, a));
 
     }
@@ -50,7 +48,6 @@ public class CollisionSystem {
 
     }
 
-
     public void simulate() {
 
         pq = new MinPQ<>();
@@ -59,9 +56,7 @@ public class CollisionSystem {
         }
         pq.insert(new Event(0, null, null));
 
-
         while (!pq.isEmpty()) {
-
             Event event = pq.delMin();
             if (!event.isValid()) continue;
             Particle a = event.a;
@@ -126,9 +121,7 @@ public class CollisionSystem {
             }
             return true;
         }
-
     }
-
 
     public static void main(String[] args) {
 
@@ -137,13 +130,11 @@ public class CollisionSystem {
         StdDraw.enableDoubleBuffering();
         Particle[] particles;
 
-
-        int n = 20;
+        int n = 40;
         particles = new Particle[n];
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             particles[i] = new Particle();
-
-
+        }
         CollisionSystem system = new CollisionSystem(particles);
         system.simulate();
     }

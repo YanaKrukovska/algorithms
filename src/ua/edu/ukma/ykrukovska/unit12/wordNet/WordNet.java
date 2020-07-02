@@ -1,16 +1,17 @@
 package ua.edu.ukma.ykrukovska.unit12.wordNet;
-import edu.princeton.cs.algs4.*;
+
+import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.DirectedCycle;
+import edu.princeton.cs.algs4.In;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class WordNet {
 
-    private static final String FILE_PATH = "D:/Studying/Algorithms/Practice12/";
     private final SAP sap;
     private final HashMap<Integer, String> idToSynset;
     private final HashMap<String, ArrayList<Integer>> synsetToId;
-
 
     public WordNet(String synsets, String hypernyms) {
         if (synsets == null || hypernyms == null) {
@@ -34,7 +35,6 @@ public class WordNet {
                 synsetToId.get(synset).add(id);
             }
         }
-
 
         Digraph g = new Digraph(idToSynset.size());
         while (!hypernymsIn.isEmpty()) {
@@ -60,7 +60,6 @@ public class WordNet {
         sap = new SAP(g);
     }
 
-
     public Iterable<String> nouns() {
         return synsetToId.keySet();
     }
@@ -79,27 +78,10 @@ public class WordNet {
         return sap.length(synsetToId.get(nounA), synsetToId.get(nounB));
     }
 
-
     public String sap(String nounA, String nounB) {
         if (nounA == null || nounB == null) {
             throw new IllegalArgumentException();
         }
         return idToSynset.get(sap.ancestor(synsetToId.get(nounA), synsetToId.get(nounB)));
-
-    }
-
-    public static void main(String[] args) {
-        In in = new In(FILE_PATH + "digraph1.txt");
-        Digraph G = new Digraph(in);
-        SAP sap = new SAP(G);
-        int v = StdIn.readInt();
-        System.out.println(v);
-        while (!StdIn.isEmpty()) {
-            // int v = StdIn.readInt();
-            int w = StdIn.readInt();
-            int length = sap.length(v, w);
-            int ancestor = sap.ancestor(v, w);
-            StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
-        }
     }
 }

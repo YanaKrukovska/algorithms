@@ -1,4 +1,4 @@
-package ua.edu.ukma.ykrukovska.unit3;
+package ua.edu.ukma.ykrukovska.unit3.stackMinimum;
 
 import java.util.Scanner;
 import java.util.Stack;
@@ -39,12 +39,12 @@ public class StackMinimum {
                     result += stack.peek();
                 }
 
-            x0 = x;
+                x0 = x;
+            }
+            System.out.println(result);
         }
-        System.out.println(result);
-    }
 
-}
+    }
 
     private static boolean validate(long n, long a, long b, long c, long x0) {
         return n >= 1 && n <= 1_000_000 && a >= 0 && b >= 0 && c >= 0 && x0 >= 0 && a <= 10_000 && b <= 10_000 && c <= 10_000 && x0 <= 10_000;

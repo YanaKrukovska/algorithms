@@ -102,37 +102,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
                 throw new java.util.NoSuchElementException();
             }
             return items[currentItem++];
-
-
         }
     }
 
     private int calculateRandomNumber() {
         return StdRandom.uniform(0, amountOfItems);
-    }
-
-
-    public static void main(String[] args) {
-
-        RandomizedQueue<Integer> randomizedQueue = new RandomizedQueue<>();
-        for (int i = 0; i < 10; i++) {
-            randomizedQueue.enqueue(i);
-        }
-
-        System.out.println("Size = " + randomizedQueue.size());
-
-        for (Integer i : randomizedQueue) {
-            System.out.println(i);
-        }
-
-        System.out.println("sample:" + randomizedQueue.sample());
-        System.out.println("sample:" + randomizedQueue.sample());
-
-        System.out.println("dequeue");
-        while (!randomizedQueue.isEmpty()) {
-            System.out.println(randomizedQueue.dequeue());
-        }
-        System.out.println("Size = " + randomizedQueue.size());
     }
 
 }

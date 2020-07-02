@@ -8,7 +8,6 @@ import java.awt.*;
 
 public class Particle {
     private static final double INFINITY = Double.POSITIVE_INFINITY;
-
     private double rx, ry;
     private final int rColor = 255;
     private int gColor = 255;
@@ -17,8 +16,7 @@ public class Particle {
     private int count;
     private final double radius;
     private final double mass;
-    private  Color color;
-
+    private Color color;
 
     public Particle() {
         rx = StdRandom.uniform(0.0, 1.0);
@@ -27,26 +25,22 @@ public class Particle {
         vy = StdRandom.uniform(-0.01, 0.01);
         radius = 0.02;
         mass = 0.5;
-        color = new Color( rColor, gColor, bColor);
+        color = new Color(rColor, gColor, bColor);
     }
-
 
     public void move(double dt) {
         rx += vx * dt;
         ry += vy * dt;
     }
 
-
     public void draw() {
         StdDraw.setPenColor(color);
         StdDraw.filledCircle(rx, ry, radius);
     }
 
-
     public int count() {
         return count;
     }
-
 
     public double timeToHit(Particle that) {
         if (this == that) {
@@ -57,7 +51,7 @@ public class Particle {
         double dvx = that.vx - this.vx;
         double dvy = that.vy - this.vy;
         double dvdr = dx * dvx + dy * dvy;
-        if (dvdr > 0){
+        if (dvdr > 0) {
             return INFINITY;
         }
         double dvdv = dvx * dvx + dvy * dvy;
@@ -76,20 +70,16 @@ public class Particle {
     public double timeToHitVerticalWall() {
         if (vx > 0) {
             return (1.0 - rx - radius) / vx;
-        }
-        else if (vx < 0) {
+        } else if (vx < 0) {
             return (radius - rx) / vx;
-        }
-        else return INFINITY;
+        } else return INFINITY;
     }
-
 
     public double timeToHitHorizontalWall() {
         if (vy > 0) return (1.0 - ry - radius) / vy;
         else if (vy < 0) return (radius - ry) / vy;
         else return INFINITY;
     }
-
 
     public void bounceOff(Particle that) {
         double dx = that.rx - this.rx;
@@ -104,10 +94,10 @@ public class Particle {
         double jx = J * dx / dist;
         double jy = J * dy / dist;
 
-        this.vx += (jx / this.mass) + 0.001;
-        this.vy += (jy / this.mass) + 0.001;
-        that.vx -= (jx / that.mass) + 0.001;
-        that.vy -= (jy / that.mass) + 0.001;
+        this.vx += (jx / this.mass);
+        this.vy += (jy / this.mass);
+        that.vx -= (jx / that.mass);
+        that.vy -= (jy / that.mass);
 
         changeColor(that);
 
@@ -116,23 +106,21 @@ public class Particle {
     }
 
     private void changeColor(Particle that) {
-        if (this.bColor - 5 >= 0 && this.gColor - 5 >= 0){
+        if (this.bColor - 5 >= 0 && this.gColor - 5 >= 0) {
             this.bColor -= 5;
             this.gColor -= 5;
             this.color = new Color(this.rColor, this.gColor, this.bColor);
         }
-        if (that != null && that.bColor - 5 >= 0 && that.gColor - 5 >= 0){
+        if (that != null && that.bColor - 5 >= 0 && that.gColor - 5 >= 0) {
             that.bColor -= 5;
             that.gColor -= 5;
             that.color = new Color(that.rColor, that.gColor, that.bColor);
         }
-
     }
 
     public void bounceOffVerticalWall() {
         vx = -vx;
         count++;
-
         changeColor(null);
     }
 
@@ -140,7 +128,6 @@ public class Particle {
         vy = -vy;
         count++;
         changeColor(null);
-
     }
 
 }

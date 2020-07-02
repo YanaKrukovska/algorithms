@@ -1,16 +1,16 @@
-package ua.edu.ukma.ykrukovska.unit3.DequeRandomizedQueue;
+package ua.edu.ukma.ykrukovska.unit3.collections;
 
 import java.util.Iterator;
 
-public class Deque<Item> implements Iterable<Item> {
+public class LinkedQueue<Item> implements Iterable<Item> {
 
     private Node first;
     private Node last;
     private int size;
 
-    public Deque() {
+    public LinkedQueue() {
         first = null;
-        last = first;
+        last = null;
         size = 0;
     }
 
@@ -21,42 +21,48 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public boolean isEmpty() {
-        return size() == 0;
+        return first == null;
     }
 
     public int size() {
         return size;
     }
 
-    public void addFirst(Item item) {
-
+    public void enqueue(Item item) {
         checkNotNull(item);
-        Node previousFirst = first;
-        first = new Node();
-        first.item = item;
-        first.next = previousFirst;
 
-        if (last == null) {
-            last = first;
-        } else {
-            previousFirst.previous = first;
-        }
-        size++;
-    }
-
-    public void addLast(Item item) {
-        checkNotNull(item);
         Node previousOld = last;
         last = new Node();
         last.previous = previousOld;
         last.item = item;
 
-        if (first == null) {
+        if (isEmpty()) {
             first = last;
         } else {
             previousOld.next = last;
         }
         size++;
+    }
+
+    public Item peek() {
+        checkIfDequeEmpty();
+        return first.item;
+    }
+
+    public Item dequeue() {
+        checkIfDequeEmpty();
+        Item item = first.item;
+
+        if (size > 1) {
+            first = first.next;
+            first.previous = null;
+        } else {
+            first = null;
+            last = null;
+        }
+        size--;
+
+        return item;
     }
 
     private void checkNotNull(Item item) {
@@ -67,40 +73,16 @@ public class Deque<Item> implements Iterable<Item> {
         if (isEmpty()) throw new java.util.NoSuchElementException();
     }
 
-    public Item removeFirst() {
-        checkIfDequeEmpty();
-        Item item = first.item;
-        if (size > 1) {
-            first = first.next;
-            first.previous = null;
-        } else {
-            first = null;
-            last = null;
-        }
-        size--;
-        return item;
-    }
-
-    public Item removeLast() {
-        checkIfDequeEmpty();
-        Item item = last.item;
-        if (size > 1) {
-            last = last.previous;
-            last.next = null;
-        } else {
-            first = null;
-            last = null;
-        }
-        size--;
-        return item;
-    }
-
     public Iterator<Item> iterator() {
         return new ListIterator();
     }
 
     private class ListIterator implements Iterator<Item> {
-        private Node current = first;
+        private Node current;
+
+        public ListIterator() {
+            current = first;
+        }
 
         public boolean hasNext() {
             return current != null;

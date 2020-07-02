@@ -1,6 +1,5 @@
 package ua.edu.ukma.ykrukovska.unit13;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -35,7 +34,7 @@ public class Carcass {
         int[] tree = new int[n + 1];
 
         int sum = 0;
-        for (int i = 0; i < m; ++i) {
+        for (int i = 0; i < m; i++) {
             if (tree[values[i][0]] == 0 || tree[values[i][0]] != tree[values[i][1]]) {
                 sum += values[i][2];
 
@@ -70,8 +69,6 @@ public class Carcass {
             }
 
         }
-
         System.out.println(sum);
-
     }
 }

@@ -1,4 +1,4 @@
-package ua.edu.ukma.ykrukovska.unit4;
+package ua.edu.ukma.ykrukovska.unit4.collinearPoints;
 
 public class LineSegment {
     private final Point p;
@@ -11,7 +11,6 @@ public class LineSegment {
         this.p = p;
         this.q = q;
     }
-
 
     public void draw() {
         p.drawTo(q);

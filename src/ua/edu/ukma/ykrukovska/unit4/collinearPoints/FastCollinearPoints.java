@@ -1,4 +1,8 @@
-package ua.edu.ukma.ykrukovska.unit4;
+package ua.edu.ukma.ykrukovska.unit4.collinearPoints;
+
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdOut;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -6,7 +10,6 @@ import java.util.List;
 
 public class FastCollinearPoints {
     private final LineSegment[] segments;
-
 
     public FastCollinearPoints(Point[] points) {
         checkNull(points);
@@ -74,6 +77,29 @@ public class FastCollinearPoints {
     }
 
     public static void main(String[] args) {
-        /* YOUR CODE HERE */
+
+        In data = new In("D:/Studying/Algorithms/test/rs1423.txt");
+        int n = data.readInt();
+        Point[] points = new Point[n];
+        for (int i = 0; i < n; i++) {
+            int x = data.readInt();
+            int y = data.readInt();
+            points[i] = new Point(x, y);
+        }
+
+        StdDraw.enableDoubleBuffering();
+        StdDraw.setCanvasSize(650, 650);
+        StdDraw.setXscale(-1000, 40000);
+        StdDraw.setYscale(-1000, 40000);
+        for (Point p : points) {
+            p.draw();
+        }
+
+        FastCollinearPoints collinear = new FastCollinearPoints(points);
+        for (LineSegment segment : collinear.segments()) {
+            StdOut.println(segment);
+            segment.draw();
+        }
+        StdDraw.show();
     }
 }

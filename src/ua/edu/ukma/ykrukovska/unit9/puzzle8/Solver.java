@@ -5,7 +5,6 @@ import edu.princeton.cs.algs4.MinPQ;
 import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdOut;
 
-
 public class Solver {
 
     private SearchNode lastNode;
@@ -46,8 +45,6 @@ public class Solver {
             lastNode = expand(queue);
             if (lastNode != null || expand(twinMoves) != null) return;
         }
-
-
     }
 
     private SearchNode expand(MinPQ<SearchNode> moves) {
@@ -68,7 +65,6 @@ public class Solver {
 
     public boolean isSolvable() {
         return lastNode != null;
-
     }
 
     public int moves() {
@@ -90,15 +86,10 @@ public class Solver {
         return moves;
     }
 
-
-
-
     public static void main(String[] args) {
 
-        In in = new In("D:/Studying/Algorithms/puzzle/puzzle3x3unsolvable.txt");
-        // In in = new In("D:/Studying/Algorithms/puzzle/puzzle31.txt");
-        // In in = new In("D:/Studying/Algorithms/puzzle/puzzle04.txt");
-        // In in = new In(args[0]);
+        In in = new In("D:/Studying/Algorithms/puzzle/puzzle4x4.txt");
+
         int n = in.readInt();
         int[][] tiles = new int[n][n];
         for (int i = 0; i < n; i++)
